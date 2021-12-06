@@ -8,6 +8,7 @@ for i in reversed(coin_list):
     K %= i
 print(count)
 
+
 """
 10 4200
 1

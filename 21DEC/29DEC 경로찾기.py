@@ -4,21 +4,18 @@ from collections import defaultdict, deque
 
 read = sys.stdin.readline
 N = int(read())  # 노드 수
-board = []
 queue = deque()
 graph_dict = defaultdict(set)
+board = [list(map(int, read().split())) for _ in range(N)]
 
-for _ in range(N):
-    board.append(list(map(int, read().split())))
 for idx, b in enumerate(board):
     for jdx, each_b in enumerate(b):
         if each_b == 1:
             graph_dict[idx + 1].add(jdx + 1)
+
 for i in range(1, N + 1):
-    row = []
     visited = []
-    for k in graph_dict[i]:
-        queue.append(k)
+    queue = deque(graph_dict[i])
     while queue:
         pops = queue.popleft()
         for j in graph_dict[pops]:

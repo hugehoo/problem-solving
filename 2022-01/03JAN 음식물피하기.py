@@ -15,6 +15,7 @@ for _ in range(K):
 
 max_count = -1
 count = 0
+
 for r in range(N):
     for c in range(M):
         if board[r][c] == 1:
@@ -27,9 +28,6 @@ for r in range(N):
                 for i in range(4):
                     ny = a + dy[i]
                     nx = b + dx[i]
-
-                    # if ny <= -1 or ny >= N or nx <= -1 or nx >= M:
-                    #     continue
 
                     if 0 <= ny < N and 0 <= nx < M and board[ny][nx] == 1 and visited[ny][nx] == 0:
                         queue.append((ny, nx))

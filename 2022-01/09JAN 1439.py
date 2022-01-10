@@ -53,9 +53,7 @@ for n in N:
     if not previous:
         previous.append(n)
         continue
-    if previous and previous[-1] == n:
-        previous.append(n)
-    else:
+    if previous and previous[-1] != n:
         result.append(previous[-1])
         previous = [n]
 print(min(result.count('1'), result.count('0')))

@@ -14,11 +14,7 @@ for h in range(H):
             if temp[n][m] == 1:
                 queue.append((h, n, m))
     board.append(temp)
-# for hdx, layer in enumerate(board):
-#     for rdx, row in enumerate(layer):
-#         for cdx, ele in enumerate(row):
-#             if ele == 1:
-#                 queue.append((hdx, rdx, cdx))
+
 visited = []
 dh = [0, 0, 0, 0, 1, -1]
 dc = [0, 0, 1, -1, 0, 0]
@@ -45,20 +41,3 @@ for b in board:
 
 print(answer - 1)
 
-# 어떤 기준으로 날짜를 추가해야하지
-# 1 인 지점이 여러개이면, 어떻게 날짜를 + 1 하지
-
-"""
-5 3 2
-0 0 0 0 0
-0 0 0 0 0
-0 0 0 0 0
-0 0 0 0 0
-0 0 1 0 0
-0 0 0 0 0
-
-5 3 1
-0 -1 0 0 0
--1 -1 0 1 1
-0 0 0 1 1
-"""

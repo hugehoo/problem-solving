@@ -3,29 +3,23 @@ from collections import deque
 
 
 # 2. 프로그래머스 2주차 1번 문제
-def heappopAll(heap : heapq, result):
+def heappopAll(heap: heapq, result):
     while heap:
         temp = heapq.heappop(heap)
         result.append(temp[1])
-    pass
 
 
 def solution(booked, unbooked):
-    current_queue = deque()
-    book_heap, unbook_heap = [], []
+    result, book_heap, unbook_heap = [], [], []
 
     for b in booked:
         heapq.heappush(book_heap, b)
     for b in unbooked:
         heapq.heappush(unbook_heap, b)
 
-    # time 을 10분단위로 추가해줄 함수 필요.
-    # cuurent_queue 가 비어있다면, 그 다음으로 들어올 시간에 맞춰 time 을 다시 초기화해줄 필요 있다.
-
     # 첫 스타트
-    book_init = heapq.heappop(book_heap)
-    unbook_init = heapq.heappop(unbook_heap)
-    result = []
+    book_init, unbook_init = heapq.heappop(book_heap), heapq.heappop(unbook_heap)
+
     if book_init[0] <= unbook_init[0]:
         result.append(book_init[1])
         current_time = time_calculate(book_init[0])
@@ -37,34 +31,46 @@ def solution(booked, unbooked):
 
     # 1번 비교 :  book_heap 의 첫번째가 current_time 보다 작거나 같다면 book_heap 을 pop하고 result 에 넣는다.
     # 2번 비교 : current_time 보다 book_heap 첫번째가 높은데, unbook_heap 의 첫번째가 book_heap 보다 더 빠르다면 unbook_heap 을 pop 하고 result 에 넣는다.
-    while book_heap or unbook_heap:
-        # book heap 이 없다면, 걍 unbook heap 만 출력시키면 됨
-        if book_heap:
-            book = heapq.heappop(book_heap)
-        else:
+    # 비교대상 3가지 : 현재시간, 예약 시간, 비예약 시간
+    # -> 예약 합이 비면, 비예약 시간 다 출력하면 된다. 역 도 성립
+    while True:
+        if not book_heap and not unbook_heap:
+            return result
+        elif not book_heap:
             heappopAll(unbook_heap, result)
-            break
+            return result
 
-        if unbook_heap:
-            unbook = heapq.heappop(unbook_heap)
-        else:
+        elif not unbook_heap:
             heappopAll(book_heap, result)
-            break
+            return result
 
-        if current_time >= book[0]:
-            result.append(book[1])
-            current_time = time_calculate(book[0])
-            heapq.heappush(unbook_heap, unbook)
-        elif current_time < book[0] and unbook[0] < book[0]:
-            result.append(unbook[1])
-            current_time = time_calculate(unbook[0])
-            heapq.heappush(book_heap, book)
         else:
-            result.append(book[1])
-            current_time = time_calculate(book[0])
-            heapq.heappush(unbook_heap, unbook)
+            book = heapq.heappop(book_heap)
+            unbook = heapq.heappop(unbook_heap)
 
-    return result
+            if current_time >= book[0]:  # and book_heap:
+                result.append(book[1])
+                current_time = time_calculate(book[0])
+                heapq.heappush(unbook_heap, unbook)
+
+            elif unbook[0] < book[0] and current_time < book[0]:
+                result.append(unbook[1])
+                current_time = time_calculate(unbook[0])
+                heapq.heappush(book_heap, book)
+
+            elif current_time < book[0] and unbook[0] < book[0]:
+                result.append(unbook[1])
+                current_time = time_calculate(unbook[0])
+                heapq.heappush(book_heap, book)
+
+            elif current_time < unbook[0] and book[0] < unbook[0]:
+                result.append(book[1])
+                current_time = time_calculate(book[0])
+                heapq.heappush(unbook_heap, unbook)
+            else:
+                result.append(book[1])
+                current_time = time_calculate(book[0])
+                heapq.heappush(unbook_heap, unbook)
 
 
 def make_two_string(num: int):
@@ -93,6 +99,7 @@ def time_calculate(time: str):
     return ':'.join([hour, minute])
 
 
-solution([["09:10", "lee"]], [["09:00", "kim"], ["09:05", "bae"]])
-# solution([["09:55", "hae"], ["10:05", "jee"]], [["10:04", "hee"], ["14:07", "eom"]])
-# solution([["09:55", "hae"], ["10:05", "jee"], ["15:05", "kwo"]], [["10:04", "hee"], ["14:07", "eom"], ["23:50", "eom"]])
+print(solution([["09:10", "lee"]], [["09:00", "kim"], ["09:05", "bae"]]))
+print(solution([["09:55", "hae"], ["10:05", "jee"]], [["10:04", "hee"], ["14:07", "eom"]]))
+print(solution([["09:55", "hae"], ["10:05", "jee"], ["15:05", "kwo"]],
+               [["10:04", "hee"], ["14:07", "eom"], ["23:50", "eom2"]]))

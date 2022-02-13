@@ -1,32 +1,30 @@
 import sys
 
 input = sys.stdin.readline
-n, target_weight = map(int, input().split())
-table = [0] * (target_weight + 1)
-for _ in range(n):
-    weight, value = map(int, input().split())
-    if weight > target_weight:
-        continue
-    for j in range(target_weight, 0, -1):
-        if j + weight <= target_weight and table[j] != 0:
-            table[j + weight] = max(table[j + weight], table[j] + value)
-    table[weight] = max(table[weight], value)
-print(max(table))
+for _ in range(int(input())):
+    n = int(input())
+    coins = map(int, input().split())
+    target = int(input())
+    dp = [1] + target * [0]
+    for coin in coins:
+        for j in range(coin, target + 1):
+            dp[j] += dp[j - coin]
+    print(dp[target])
 
 """
-입력과 출력을 써놓고 시작하자. 
-출력이 좀 더 중요함 -> 정답과 매칭되는 것이니.  
-      w      v
-A     6      13
-B     4      8
-c     3      6
-d     5      12
+3
+2
+1 2
+1000
+3
+1 5 10
+100
+2
+5 7
+22
 
-
-
-4 7
-6 13
-4 8
-3 6
-5 12
+T 테스트케이스
+N  동전의 가지수
+a, b 동전의 각 금액이 오름차순 정렬
+M 타겟 금액
 """

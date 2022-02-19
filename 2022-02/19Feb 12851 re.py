@@ -5,7 +5,7 @@ input = sys.stdin.readline
 N, K = map(int, input().split())
 queue = deque()
 queue.append(N)
-dist = [-1] * 100001
+dist = [-1] * 100001  # 방문을 하지 않은 것과 (-1), 초기 위치의 값(0) 은 엄연히 달라야한다.
 dist[N] = 0
 cnt = 0
 while queue:

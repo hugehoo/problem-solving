@@ -4,33 +4,24 @@ import sys
 input = sys.stdin.readline
 N, K = map(int, input().split())
 queue = deque()
-queue.append([N, 0, N])
+queue.append(N)
+# queue.append([N, 0, N])
 result = []
-visited = set()
+visited = []
+dist = [0] * 100001
+cnt = 0
 while queue:
-    # 브레이크 조건
-    # K 보다 커지면
-    n, c, before = queue.popleft()
-    if n == K:
-        result.append(c)
-        continue
-    # if n in visited:
-    #     continue
-
-    if abs(n - K) > abs(before - K):
-        continue
-
-    # visited.add(n)
-    # c += 1
-    queue.append([n + 1, c + 1, n])
-    queue.append([n - 1, c + 1, n])
-    queue.append([n * 2, c + 1, n])
-print(result)
-print(min(result))
-if min(result) == 0:
-    print(0)
-else:
-    print(result.count(min(result)))
+    x = queue.popleft()
+    if x == K:
+        cnt += 1
+        # print(dist[x])
+    for y in [x - 1, x + 1, 2 * x]:
+        if 0 <= y <= 100000 and (dist[y] == 0 or dist[y] >= dist[x] + 1):
+            # if dist[y] == 0 or dist[y] >= dist[x] + 1:
+            dist[y] = dist[x] + 1
+            queue.append(y)
+print(dist[K])
+print(cnt)
 
 """
 N - 1

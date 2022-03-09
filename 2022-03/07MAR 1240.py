@@ -12,23 +12,18 @@ for _ in range(n - 1):
 
 
 def bfs(start, end):
-    global n
-    global graph
-    root = deque()
-    root.append(start)
-    way = [0] * (n + 1)
-    visited = [0] * (n + 1)
-
-    while root:
-        current = root.popleft()
+    visited, dist = [0] * (n + 1), [0] * (n + 1)
+    queue = deque([start])
+    while queue:
+        current = queue.popleft()
         if current == end:
-            break
-        if visited[current] == 0:
+            return dist[end]
+
+        if not visited[current]:
             visited[current] = 1
             for next_node in graph[current]:
-                root.append(next_node[0])
-                way[next_node[0]] = way[current] + next_node[1]
-    return way[end]
+                queue.append(next_node[0])
+                dist[next_node[0]] = next_node[1] + dist[current]
 
 
 for _ in range(m):

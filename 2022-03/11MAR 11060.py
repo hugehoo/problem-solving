@@ -6,9 +6,7 @@ input = sys.stdin.readline
 t = int(input())
 board = list(map(int, input().split()))
 
-answer = -1
-curr_idx = 0
-jump = 0
+curr_idx, jump = 0, 0
 queue = deque()
 queue.append((curr_idx, jump))
 visited = []
@@ -19,10 +17,11 @@ while queue:
         print(jump)
         exit()
 
-    # if curr_idx not in visited:
     for i in range(1, board[curr_idx] + 1):
-        queue.append((curr_idx + i, jump + 1))
-print(curr_idx, jump)
+        next_idx = curr_idx + i
+        if next_idx not in visited:
+            queue.append((next_idx, jump + 1))
+            visited.append(next_idx)
 print(-1)
 
 

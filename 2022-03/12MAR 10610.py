@@ -31,19 +31,30 @@ input = sys.stdin.readline
 # else:
 #     print(-1)
 
+# 3
+# n = input()
+# arr, total = [0] * 10, 0
+#
+# for i in range(10):
+#     arr[i] = n.count(str(i))
+#     total += (arr[i] * i)
+#
+# if arr[0] == 0 or total % 3 != 0:
+#     print(-1)
+# else:
+#     for i in range(10):
+#         print(str(9 - i) * arr[9 - i], end='')
 
-n = input()
-arr, total = [0] * 10, 0
-
-for i in range(10):
-    arr[i] = n.count(str(i))
-    total += (arr[i] * i)
-
-if arr[0] == 0 or total % 3 != 0:
+# 4
+n = list(map(int, input().strip()))
+total = sum(n)
+if n.count(0) == 0 or total % 3 != 0:
     print(-1)
-else:
-    for i in range(10):
-        print(str(9 - i) * arr[9 - i], end='')
+    exit()
+n.sort(reverse=True)
+for i in n:
+    print(str(i), end='')
+
 """
 100_000 개의 숫자로 구성됨
 """

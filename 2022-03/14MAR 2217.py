@@ -14,9 +14,7 @@ count = 0
 arr = []
 i = 1
 while heap:
-
     pops = heapq.heappop(heap)
-    arr.append(pops[1])
-    count = max(count, len(arr[0:i]) * arr[-1])
+    arr.append(pops[1] * i)
     i += 1
-print(count)
+print(arr, max(arr))

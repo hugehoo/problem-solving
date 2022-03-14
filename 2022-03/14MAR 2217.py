@@ -20,9 +20,3 @@ while heap:
     count = max(count, len(arr[0:i]) * arr[-1])
     i += 1
 print(count)
-
-"""
-2
-10
-15
-"""

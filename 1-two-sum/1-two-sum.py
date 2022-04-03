@@ -2,7 +2,8 @@ class Solution:
     def twoSum(self, nums, target: int):
         for i in range(len(nums)):
             try:
-                find = nums.index(target - nums[i], i + 1)
+                sub = target - nums[i]
+                find = nums.index(sub, i + 1)
             except ValueError:
                 continue
             return [i, find]

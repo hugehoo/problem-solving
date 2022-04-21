@@ -1,35 +1,28 @@
-
-
 def solution(gems):
-    def containAll(param: list):
-        gem_set = set(gems)
-        for g in gem_set:
-            if g not in param:
-                return False
-        else:
-            return True
-
-    sp, ep, = 0, 0
-    N = len(gems)
-    MAX_LENGTH = N
     answer = []
-    if 1 == len(set(gems)):
-        return [1, 1]
+    shortest = len(gems) + 1
+    start_p, end_p = 0, 0
+    check_len = len(set(gems))
+    contained = {}
+    while end_p < len(gems):
+        if gems[end_p] not in contained:
+            contained[gems[end_p]] = 1
+        else:
+            contained[gems[end_p]] += 1
 
-    for e in range(ep, N):
-        for s in range(sp, e):
-            if containAll(gems[s: e + 1]) and MAX_LENGTH >= e - s + 1:
-                MAX_LENGTH = e - s + 1
-                if answer and answer[-1][1] - answer[-1][0] > e - s:
-                    answer.pop()
-                    answer.append([s + 1, e + 1])
+        end_p += 1
+        if len(contained) == check_len:  # 현재 구간내 모든 보석이 있을 때
+            while start_p < end_p:
+                if contained[gems[start_p]] > 1:
+                    contained[gems[start_p]] -= 1
+                    start_p += 1
+                elif shortest > end_p - start_p:
+                    shortest = end_p - start_p
+                    answer = [start_p + 1, end_p]
+                    break
                 else:
-                    answer.append([s + 1, e + 1])
-                sp += 1
-        ep += 1
-        # sp 는 언제 추가? -> if MAX_LENGTH 조건을 만족할 때
-    answer.sort()
-    return answer[0]
+                    break
+    return answer
 
 
 print(solution(["DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE", "DIA"]))

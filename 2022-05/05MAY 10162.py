@@ -2,46 +2,17 @@ import sys
 
 input = sys.stdin.readline
 
-first = list(input().strip())
-second = list(input().strip())
-third = list(input().strip())
+n = int(input())
 
+a = 300
+b = 60
+c = 10
 
-def compare(first_, second_):
-    first_ = [0] + first_
-    second_ = [0] + second_
-    board = [[0] * (len(first_)) for _ in range(len(second_))]
+a_b, a_r = n // a, n % a
+b_b, b_r = a_r // b, a_r % b
+c_b, c_r = b_r // c, b_r % c
 
-    for sec in range(1, len(second_)):
-        for fir in range(1, len(first_)):
-            if first_[fir] == second_[sec]:
-                board[sec][fir] += (board[sec - 1][fir - 1] + 1)
-            else:
-                board[sec][fir] = max(board[sec - 1][fir], board[sec][fir - 1])
-
-    r = len(second_) - 1
-    c = len(first_) - 1
-
-    result = []
-    while True:
-        if board[r][c] == 0:
-            break
-        if board[r][c] != board[r - 1][c] and board[r][c] != board[r][c - 1]:
-            result.append(first_[c])
-            r -= 1
-            c -= 1
-            continue
-
-        if board[r][c] == board[r - 1][c]:
-            r -= 1
-            continue
-        if board[r][c] == board[r][c - 1]:
-            c -= 1
-            continue
-    return ''.join(result[::-1])
-
-
-middle = compare(first, second)
-answer = compare(list(middle), third)
-print(len(answer))
-
+if c_r != 0:
+    print(-1)
+else:
+    print(a_b, b_b, c_b)

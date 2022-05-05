@@ -6,42 +6,27 @@ first = list(input().strip())
 second = list(input().strip())
 third = list(input().strip())
 
+x = len(first)
+y = len(second)
+z = len(third)
 
-def compare(first_, second_):
-    first_ = [0] + first_
-    second_ = [0] + second_
-    board = [[0] * (len(first_)) for _ in range(len(second_))]
+board = [[[0] * (x + 1) for _ in range(y + 1)] for _ in range(z + 1)]
 
-    for sec in range(1, len(second_)):
-        for fir in range(1, len(first_)):
-            if first_[fir] == second_[sec]:
-                board[sec][fir] += (board[sec - 1][fir - 1] + 1)
+for i in range(1, z + 1):
+    for j in range(1, y + 1):
+        for k in range(1, x + 1):
+            if first[k - 1] == second[j - 1] and second[j - 1] == third[i - 1]:
+                board[i][j][k] = board[i - 1][j - 1][k - 1] + 1
             else:
-                board[sec][fir] = max(board[sec - 1][fir], board[sec][fir - 1])
+                board[i][j][k] = max(board[i - 1][j][k], board[i][j - 1][k], board[i][j][k - 1])
+answer = -1
+for i in range(z + 1):
+    for j in range(y + 1):
+        answer = max(max(board[i][j]), answer)
+print(answer)
 
-    r = len(second_) - 1
-    c = len(first_) - 1
-
-    result = []
-    while True:
-        if board[r][c] == 0:
-            break
-        if board[r][c] != board[r - 1][c] and board[r][c] != board[r][c - 1]:
-            result.append(first_[c])
-            r -= 1
-            c -= 1
-            continue
-
-        if board[r][c] == board[r - 1][c]:
-            r -= 1
-            continue
-        if board[r][c] == board[r][c - 1]:
-            c -= 1
-            continue
-    return ''.join(result[::-1])
-
-
-middle = compare(first, second)
-answer = compare(list(middle), third)
-print(len(answer))
-
+# for b in board:
+#     for a in b:
+#         print(a)
+#     print(' ')
+#

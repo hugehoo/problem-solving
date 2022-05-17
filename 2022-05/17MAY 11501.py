@@ -7,13 +7,12 @@ for _ in range(N):
     n = int(input())
     arr = list(map(int, input().split()))
     total = 0
-    while len(arr) >= 2:
-        max_idx = arr.index(max(arr))
-        semi_total = 0
-        for i in arr[:max_idx]:
-            semi_total += arr[max_idx] - i
-        total += semi_total
-        arr = arr[max_idx + 1:]
+    max_value = arr[-1]
+    for i in range(n - 2, -1, -1):
+        if arr[i] > max_value:
+            max_value = arr[i]
+        else:
+            total += (max_value - arr[i])
     print(total)
 
 """

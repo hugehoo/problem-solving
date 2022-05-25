@@ -4,46 +4,48 @@ from heapq import heappop, heappush
 input = sys.stdin.readline
 
 N = int(input())
+
+
+def sync(q):
+    while q and id_[q[0][1]] == 0:
+        heappop(q)
+
+
 for _ in range(N):
     M = int(input())
     nominate = []
     minq = []
     maxq = []
     number_dict = {}
+    id_ = [False] * 1000001
 
-    for _ in range(M):
+    for m in range(M):
         order, value = map(str, input().strip().split())
         if order == "I":
-            number_dict[value] = number_dict.get(value, 0) + 1
-            heappush(minq, int(value))
-            heappush(maxq, -int(value))
-
-        if order == "D":
+            heappush(minq, (int(value), m))
+            heappush(maxq, (-int(value), m))
+            id_[m] = True  # value 가 같은 값이 와도, 입력되는 순서를 기준으로 id_ 를 갱신한다.
+        else:
             if value == "1":
+                sync(maxq)
+                # maxq 를 동기화 -> for what? => minq 에서 제거된 것들이 아직 maxq 에 남아있을 때 지운다. maxq 에 남아있는 것들이 여러개일 수 있으므로,while 문 사용.
                 if maxq:
-                    pop = -heappop(maxq)
-                    if number_dict.get(pop, 0) != 0:
-                        number_dict[pop] -= 1
-                    else:
-                        print("1 ", maxq, minq, pop)
-                        minq.remove(pop)
-                # else: # maxq 가 비어도 minq 는 존재할 경우엔?
-
+                    pop = heappop(maxq)
+                    id_[pop[1]] = False
             else:
+                sync(minq)
                 if minq:
                     pop = heappop(minq)
-                    if number_dict.get(pop, 0) != 0:
-                        number_dict[pop] -= 1
-                    else:
-                        print("2 ", maxq, minq, pop)
-                        maxq.remove(-pop)
-        # print("min : ", minq)
-        # print("max : ", maxq)
-        # print(number_dict)
-    if minq and maxq:
-        print(-heappop(maxq), heappop(minq))
+                    id_[pop[1]] = False
+    sync(maxq)
+    sync(minq)
+
+    if maxq and minq:
+        print(-maxq[0][0], minq[0][0])
     else:
         print("EMPTY")
+
+
 """
 2
 7

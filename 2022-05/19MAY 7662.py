@@ -13,10 +13,8 @@ def sync(q):
 
 for _ in range(N):
     M = int(input())
-    nominate = []
     minq = []
     maxq = []
-    number_dict = {}
     id_ = [False] * 1000001
 
     for m in range(M):

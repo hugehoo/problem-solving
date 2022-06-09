@@ -1,23 +1,16 @@
 import sys
-from collections import deque
-from itertools import chain
 
 input = sys.stdin.readline
 
 N = int(input())
 before = [int(input()) for _ in range(N)]
 after = []
-pop = before.pop()
-after.append(pop)
 count = 0
-for i in range(len(before) - 1, -1, -1):
-    pop = before.pop()
-    for j in range(len(after) - 1, -1, -1):
-        if after[j] < pop:
-            count += 1
-        else:
-            break
-    after.append(pop)
+for i in range(len(before)):
+    while after and after[-1] <= before[i]:
+        after.pop()
+    count += len(after)
+    after.append(before[i])
 
 print(count)
 

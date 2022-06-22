@@ -1,17 +1,25 @@
 import sys
 from itertools import combinations
 
-n = int(sys.stdin.readline())
+N, target = map(int, input().split())
+coins = []
+dp = [float('inf')] * (target + 1)
 
-nums = list()               # 모든 감소하는 수
-for i in range(1, 11):      #  1~10개의 조합 만들기 (0~9개니깐)
-    for comb in combinations(range(0, 10), i):  # 0~9로 하나씩 조합 만들기
-        comb = list(comb)
-        comb.sort(reverse=True)                     # 해당 조합을 감소하는 수로 변경
-        nums.append(int("".join(map(str, comb))))
-nums.sort()   # 오름차순
+dp[0] = 0
+for _ in range(N):
+    coins.append(int(input()))
 
-try:
-    print(nums[n])
-except:     # 인덱스가 넘어가는 경우 -1 출력. 마지막 수 9876543210
+for n in range(N):
+    for c in range(coins[n], target + 1):
+        dp[c] = min(dp[c], dp[c - coins[n]] + 1)
+if dp[target] == float('inf'):
     print(-1)
+else:
+    print(dp[target])
+
+"""
+3 15
+1
+5
+12
+"""

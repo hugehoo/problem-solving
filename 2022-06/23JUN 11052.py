@@ -2,13 +2,11 @@ import sys
 from copy import deepcopy
 
 n = int(sys.stdin.readline())
-cards = list(map(int, input().split()))
-dp = [0] + deepcopy(cards)
-for i in range(1, len(cards) + 1):
-    if i % 2 == 0:
-        dp[i] = max(dp[i], dp[1] * i, dp[1] + dp[i - 1], dp[i // 2] * 2)
-        continue
-    dp[i] = max(dp[i], dp[1] * i, dp[1] + dp[i - 1])
+cards = [0] + list(map(int, input().split()))
+dp = [0 for _ in range(n + 1)]
+for i in range(1, n + 1):
+    for k in range(1, i + 1):
+        dp[i] = max(dp[i], dp[i - k] + cards[k])
 print(dp[-1])
 
 """

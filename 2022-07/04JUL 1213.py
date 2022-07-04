@@ -18,25 +18,21 @@ for n in word_dict.values():
 
 odd = []
 even = []
-center = []
-result = []
-part_set = set()
+center = ''
+part_set = []
 
 for k, v, in word_dict.items():
     if v % 2 != 0:
-        if v == 1:
-            center.append(k)
-        else:
-            odd += ([k] * ((v - 1) // 2))
-            center.append(k)
+        odd += ([k] * ((v - 1) // 2))
+        center = k
     else:
         even += ([k] * (v // 2))
-for p in permutations(even + odd):
-    part_set.add(''.join(p))
-for p in part_set:
-    result.append(p + ''.join(center) + p[::-1])
-result.sort()
-print(result[0])
+total = even + odd
+total.sort()
+part_set = ''.join(total)
+front = part_set
+back = front[::-1]
+print(front + ''.join(center) + back)
 
 """
 딕셔너리로 알파벳별 갯수 구한다.

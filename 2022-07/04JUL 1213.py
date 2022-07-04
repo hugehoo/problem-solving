@@ -1,38 +1,27 @@
 import sys
-from itertools import permutations
+from collections import Counter
 
 input = sys.stdin.readline
 
-word = list(input().rstrip())
-word_dict = {}
-for w in word:
-    word_dict[w] = word_dict.get(w, 0) + 1
+word = input().rstrip()
+word_dict = Counter(word)
+odd, even, center = [], [], ''
 
-not_palindrome = 0
-for n in word_dict.values():
-    if n % 2 != 0:
-        not_palindrome += 1
-    if not_palindrome > 1:
-        print("I'm Sorry Hansoo")
-        exit()
-
-odd = []
-even = []
-center = ''
-part_set = []
+if len(list(filter(lambda x: x % 2 != 0, word_dict.values()))) > 1:
+    print("I'm Sorry Hansoo")
+    exit()
 
 for k, v, in word_dict.items():
     if v % 2 != 0:
-        odd += ([k] * ((v - 1) // 2))
+        odd = ([k] * ((v - 1) // 2))
         center = k
     else:
         even += ([k] * (v // 2))
-total = even + odd
-total.sort()
-part_set = ''.join(total)
-front = part_set
-back = front[::-1]
-print(front + ''.join(center) + back)
+
+total = sorted(even + odd)
+front = ''.join(total)
+
+print(front + center + front[::-1])
 
 """
 딕셔너리로 알파벳별 갯수 구한다.

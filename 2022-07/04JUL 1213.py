@@ -5,7 +5,7 @@ input = sys.stdin.readline
 
 word = input().rstrip()
 word_dict = Counter(word)
-odd, even, center = [], [], ''
+word_part, center = [], ''
 
 if len(list(filter(lambda x: x % 2 != 0, word_dict.values()))) > 1:
     print("I'm Sorry Hansoo")
@@ -13,13 +13,12 @@ if len(list(filter(lambda x: x % 2 != 0, word_dict.values()))) > 1:
 
 for k, v, in word_dict.items():
     if v % 2 != 0:
-        odd = ([k] * ((v - 1) // 2))
+        word_part += ([k] * ((v - 1) // 2))
         center = k
     else:
-        even += ([k] * (v // 2))
+        word_part += ([k] * (v // 2))
 
-total = sorted(even + odd)
-front = ''.join(total)
+front = ''.join(sorted(word_part))
 
 print(front + center + front[::-1])
 

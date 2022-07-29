@@ -5,16 +5,16 @@ arr = list(map(str, input().split()))
 ori_arr = set(arr)
 
 sets = {"a", "e", "i", "o", "u"}
-mo = [a for a in arr if a in sets]
-ja = [a for a in arr if a not in sets]
-ja_temp = [k for k in combinations(ja, 2)]
+vowels = [a for a in arr if a in sets]
+consonants = [a for a in arr if a not in sets]
+vowels_combi = [k for k in combinations(consonants, 2)]
 result = set()
-for m in mo:
-    for j in ja_temp:
-        kamo = {m, *j}
-        k = ori_arr.difference(kamo)
-        for d in combinations(k, L - len(kamo)):
-            result.add(''.join(sorted([*d, *kamo])))
+for v in vowels:
+    for vc in vowels_combi:
+        essential = {v, *vc}
+        k = ori_arr.difference(essential)
+        for d in combinations(k, L - len(essential)):
+            result.add(''.join(sorted([*d, *essential])))
 result = sorted(list(result))
 for r in result:
     print(r)

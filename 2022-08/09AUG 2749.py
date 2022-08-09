@@ -1,4 +1,6 @@
 a, b = 0, 1
-for _ in range(int(input())):
-    a, b = b, a + b
-print(a % 1_000_000)
+mod_ = 1_000_000
+for _ in range(int(input()) % (15 * (10**5))):
+    a, b = b % mod_, (a + b) % mod_
+
+print(a)

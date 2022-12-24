@@ -21,7 +21,6 @@ result = []
 def dfs(start):
     if len(result) == M:
         print(' '.join(map(str, result)))
-        print('in if ', result)
         return
     for i in range(start, N):
         result.append(arr[i])
@@ -29,4 +28,9 @@ def dfs(start):
         result.pop()
 
 
-dfs(0)
+start_idx = 0
+dfs(start_idx)
+"""
+4 2
+9 8 7 1
+"""

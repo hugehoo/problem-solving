@@ -1,36 +1,28 @@
-
-from itertools import permutations
-
-N, M = map(int, input().split())
-arr = list(map(int, input().split()))
-
-# 1
-# res = []
-# for j in permutations(arr, M):
-#     if sorted(j) == list(j):
-#         res.append(list(j))
-#
-# for s in (sorted(res)):
-#     print(*s)
-
-# 2
-arr.sort()
-result = []
+N = int(input())
+data = list(map(int, input().split()))
+add, sub, mul, div = map(int, input().split())
+max_v = -int(1e9)
+min_v = int(1e9)
 
 
-def dfs(start):
-    if len(result) == M:
-        print(' '.join(map(str, result)))
-        return
-    for i in range(start, N):
-        result.append(arr[i])
-        dfs(i + 1)
-        result.pop()
+def dfs(depth, num, add, sub, mul, div):
+    global max_v
+    global min_v
+
+    if depth == N:
+        max_v = max(max_v, num)
+        min_v = min(min_v, num)
+    else:
+        if add:
+            dfs(depth + 1, num + data[depth], add - 1, sub, mul, div)
+        if sub:
+            dfs(depth + 1, num - data[depth], add, sub - 1, mul, div)
+        if mul:
+            dfs(depth + 1, num * data[depth], add, sub, mul - 1, div)
+        if div:
+            dfs(depth + 1, int(num / data[depth]), add, sub, mul, div - 1)
 
 
-start_idx = 0
-dfs(start_idx)
-"""
-4 2
-9 8 7 1
-"""
+dfs(1, data[0], add, sub, mul, div)
+print(max_v)
+print(min_v)

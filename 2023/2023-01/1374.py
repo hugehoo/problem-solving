@@ -1,17 +1,17 @@
-N = int(input())
-
-times = sorted([list(map(int, input().split())) for _ in range(N)], key=lambda x: x[1])
-result = [times[0][2]]
-
-for i, start, end in times[1:]:
-    for idx, r in enumerate(result):
-        if r <= start:
-            result[idx] = end
-            break
-    else:
-        result.append(end)
-
-print(len(result))
+# N = int(input())
+#
+# times = sorted([list(map(int, input().split())) for _ in range(N)], key=lambda x: x[1])
+# result = [times[0][2]]
+#
+# for i, start, end in times[1:]:
+#     for idx, r in enumerate(result):
+#         if r <= start:
+#             result[idx] = end
+#             break
+#     else:
+#         result.append(end)
+#
+# print(len(result))
 
 """
 N 은 10만 까지. 
@@ -39,3 +39,17 @@ result -> 마지막 보다 작다면, 다른 r 의 테일도 순회해야함. �
 4 6 8
 5 2 12
 """
+
+import heapq
+
+N = int(input())
+times = sorted([list(map(int, input().split())) for _ in range(N)], key=lambda x: x[1])
+min_heap = []
+count = 0
+for i, start, end in times:
+    while min_heap and min_heap[0] <= start:
+        heapq.heappop(min_heap)
+    heapq.heappush(min_heap, end)
+    count = max(count, len(min_heap))
+
+print(count)

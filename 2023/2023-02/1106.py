@@ -3,21 +3,21 @@ result = [list(map(int, input().split())) for _ in range(N)]
 # 여기 정렬 칠 때, 비율이 같은 것에 대해서는 어떻게 해야하나?
 result = sorted(result, key=lambda x: (x[1] / x[0], x[0]), reverse=True)
 print(result)
-base, remain = divmod(C, result[0][1])
-answer = base * result[0][0]
-
-if not remain:
-    print(answer)
-else:
-    min_value = float("inf")
-    for a, b in result:
-        if remain <= b:
-            min_value = min(min_value, a)
-        else:
-            another_base = remain // b
-            value = another_base // a
-            min_value = min(min_value, value)
-    print(answer + min_value)
+# base, remain = divmod(C, result[0][1])
+# answer = base * result[0][0]
+#
+# if not remain:
+#     print(answer)
+# else:
+#     min_value = float("inf")
+#     for a, b in result:
+#         if remain <= b:
+#             min_value = min(min_value, a)
+#         else:
+#             another_base = remain // b
+#             value = another_base // a
+#             min_value = min(min_value, value)
+#     print(answer + min_value)
 
 # 100 // 12 = 8, 4
 # 당연히 8만큼 7을 곱해야한다고 생각함 -> 56
@@ -26,9 +26,23 @@ else:
 # 더 작은 수로 나눈 후, 다른 수의 합으로 그 공백을 메울 수 있다.
 # 7 * 6 = 42원 -> 12 * 6 = 72명 -> 28명 남은. 20원만 넣으면 30명 채우기 가능
 # 반면 28명을 채우기 위해, 12 * 3 -> 7 * 3: 21원 필요함.
-# 그렇다면... 뭘 채워야
+# 그렇다면... 하나씩 채워나가야하나 -> 서서히 올린다 : 몇명이 남는지 본다 -> 남은 수를 최소 비용으로 채울 숫자가 등장 -> 그걸로 대체.
+answer = 0
+i = 1
 
-
+while True:
+    remain = C - (result[0][1] * i)
+    answer = result[0][0] * i
+    # 얘를 채울 다른 수가 있는지 판단. 없으면 continue
+    for a, b in result[1:]:
+        if remain <= b:
+            answer += a  # 찾음 # a 를 더하면 끝
+            print(answer)
+            exit(0)
+            break
+    else:
+        i += 1
+        continue
 # remain 이 2일 때, 1은 아예 걸러버리네. 그래서 오답뜸.
 # 1을 걸러 버릴게 아니라. 2를 충족시킬 때 가장 비용이 적게 드는 걸 골라야 함.
 # (1,1) -> 2, (3, 5) -> 3 : 결국 답은 (1,1)

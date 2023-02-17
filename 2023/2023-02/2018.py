@@ -1,14 +1,36 @@
 N = int(input())
-nums = [i for i in range(1, N + 1)]
-count, end, interval_sum = 0, 0, 0
 
-for start in range(N):
-    while interval_sum < N and end < N:
-        interval_sum += nums[end]
+# 공간복잡도 너무 O(N)
+# nums = [i for i in range(1, N + 1)]
+# count, end, interval_sum = 0, 0, 0
+#
+# for start in range(N):
+#     while interval_sum < N and end < N:
+#         interval_sum += nums[end]
+#         end += 1
+#     if interval_sum == N:
+#         count += 1
+#     interval_sum -= nums[start]
+# print(count)
+
+interval_sum = 1
+count = 1
+start, end = 1, 1
+while start < (N//2) + 1:
+    if interval_sum < N:
         end += 1
+        interval_sum += end
+        
     if interval_sum == N:
         count += 1
-    interval_sum -= nums[start]
+        end += 1
+        interval_sum += end
+        
+    if interval_sum > N:
+        interval_sum -= start
+        start += 1
+        
+        
 print(count)
         
 

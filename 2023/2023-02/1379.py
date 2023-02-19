@@ -1,22 +1,34 @@
+import heapq
+from heapq import heappush, heappop
+
 N = int(input())
 lectures = [list(map(int, input().split())) for _ in range(N)]
 sorted_lectures = sorted(lectures, key=lambda x: x[1])
-for sl in sorted_lectures:
-    print(sl)
-rooms = [sorted_lectures[0][2]]
-K = float("-inf")
-print(rooms)
-for i, s, e in sorted_lectures[1:]:
-    if min(rooms) > s:
-        rooms.append(e)
-    else:
-        min_idx = rooms.index(min(rooms))
-        rooms[min_idx] = e
-    print(rooms)
-    if len(rooms) > K:
-        K = len(rooms)
+room = [i for i in range(1, N + 1)]
+pq = []
+answer = [0] * (N + 1)
+for i, start, end in sorted_lectures:
+    while pq and pq[0][0] <= start:
+        end, roomNo = heappop(pq)
+        heappush(pq, [])
+        
+    r, room = room[0], room[1:]
+    heappush(pq, [start, r])
+    answer[i] = r
 
+# for i, s, e in sorted_lectures:
+#     if pq and pq[0][0] <= s:
+#         heappop(pq)
+#         heappush(pq, [e, s, i])
+#         room[i] = K
+#     else:
+#         heappush(pq, [e, s, i])
+#         K += 1
+#         room[i] = K
+# 강의실 번호는 일찍 들어가는 순서대로 할당해도 된다.
 print(K)
+print(' ')
+print(room)
 
 """
 강의 번호, 시작 시간, 종료 시간

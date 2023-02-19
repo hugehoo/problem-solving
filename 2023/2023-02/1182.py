@@ -1,15 +1,27 @@
-from itertools import combinations
-
 N, S = map(int, input().split())
 nums = list(map(int, input().split()))
 cnt = 0
 
-for n in range(1, N+1):
-    for c in list(combinations(nums, n)):
-        if sum(c) == S:
-            cnt += 1
 
+def backtracking(idx, partial_sum):
+    global cnt
+    
+    if idx >= N:
+        return
+
+    partial_sum += nums[idx]
+
+    if partial_sum == S:
+        cnt += 1
+
+    backtracking(idx + 1, partial_sum)
+    backtracking(idx + 1, partial_sum - nums[idx])
+
+
+backtracking(0, 0)
 print(cnt)
+
+
 """
 5 0
 -7 -3 -2 5 8

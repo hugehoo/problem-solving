@@ -14,8 +14,3 @@ for i in range(T):
             album[nums[i]] = [1, i]
 album = sorted(album.keys())
 print(*album)
-"""
-3
-9
-2 1 4 3 5 6 2 7 2
-"""

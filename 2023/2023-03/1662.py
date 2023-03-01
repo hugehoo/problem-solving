@@ -1,20 +1,15 @@
 string = list(input())
 input_stack = []
-output_stack = []
+length = 0
+iter_num = 0
 for s in string:
-    if s == ")":
-        iter_num = -1
-        while 1:
-            input_top = input_stack.pop()
-            if input_top != "(":
-                output_stack.append(input_top)
-            else:
-                iter_num = input_stack.pop()
-                break
-        input_stack.append(int(iter_num) * (''.join(output_stack)))
-        output_stack = []
+    if s.isdigit():
+        length += 1
+        iter_num = s
+    elif s == "(":
+        input_stack.append([int(iter_num), length - 1])
+        length = 0
     else:
-        input_stack.append(s)
-
-answer = ''.join(input_stack)
-print(len(answer))
+        multi, pre_left = input_stack.pop()
+        length = ((multi * length) + pre_left)
+print(length)

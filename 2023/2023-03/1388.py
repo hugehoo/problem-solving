@@ -5,31 +5,32 @@ count = 0
 
 
 def search_horizon(r, c):
-    global count
-    if c - 1 >= 0:
-        if not visited[r][c - 1] and board[r][c - 1] == '-':
-            # count += 1
-            visited[r][c - 1] = 1
-            search_horizon(r, c - 1)
-    if c + 1 < C:
-        if not visited[r][c + 1] and board[r][c + 1] == '-':
-            # count += 1
-            visited[r][c + 1] = 1
-            search_horizon(r, c + 1)
-    # count += 1
+    up_c = c - 1
+    down_c = c + 1
+
+    if up_c >= 0:
+        if not visited[r][up_c] and board[r][up_c] == '-':
+            visited[r][up_c] = 1
+            search_horizon(r, up_c)
+    if down_c < C:
+        if not visited[r][down_c] and board[r][down_c] == '-':
+            visited[r][down_c] = 1
+            search_horizon(r, down_c)
     return
 
 
 def search_vertical(r, c):
-    global count
-    if r - 1 >= 0:
-        if not visited[r - 1][c] and board[r - 1][c] == '|':
-            visited[r - 1][c] = 1
-            search_vertical(r - 1, c)
-    if r + 1 < R:
-        if not visited[r + 1][c] and board[r + 1][c] == '|':
-            visited[r + 1][c] = 1
-            search_vertical(r + 1, c)
+    left_r = r - 1
+    right_r = r + 1
+    
+    if left_r >= 0:
+        if not visited[left_r][c] and board[left_r][c] == '|':
+            visited[left_r][c] = 1
+            search_vertical(left_r, c)
+    if right_r < R:
+        if not visited[right_r][c] and board[right_r][c] == '|':
+            visited[right_r][c] = 1
+            search_vertical(right_r, c)
     return
 
 

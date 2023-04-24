@@ -5,6 +5,5 @@ class Solution:
         char_counts = Counter(s)
         result = sum(v // 2 * 2 for v in char_counts.values())
         if result < len(s):
-            return result + 1
-        else:
-            return result
+            result += 1
+        return result

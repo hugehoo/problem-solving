@@ -2,5 +2,5 @@
 
 class Solution:
     def singleNumber(self, nums: list[int]) -> int:
-        n = Counter(nums)
-        return [n_ for n_ in n if n.get(n_) == 1][0]
+        nums = Counter(nums)
+        return [n_ for n_ in nums if nums.get(n_) == 1][0]

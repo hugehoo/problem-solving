@@ -1,6 +1,3 @@
-|    날짜    |  문제   |    카테고리    |  1회   |  2회   |  3회   |
+|    date    |  problems   |    difficulty    |  1st   |  2nd   |  3rd   |
 |:--------:|:-----:|:----------:|:-----:|:-----:|:-----:|
-| 23.03.09 | 1660  |     DP     |  ✅    | ☑️    | ☑️    |
-| 23.03.10 | 19598 |   Greedy   |  ✅     | ☑️    | ☑️    |
-| 23.03.12 | 1011  |    math    | ✅    | ☑️    | ☑️    |
-| 23.03.13 | 1025  | simulation | ✅    | ☑️    | ☑️    |
+| 23.04.28 | [214. Shortest Palindrome](https://leetcode.com/problems/shortest-palindrome/)  | hard | ✅    | ☑️    | ☑️    |

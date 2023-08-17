@@ -1,19 +1,17 @@
-
 func singleNumber(nums []int) int {
-	counts := make(map[int]int)
+    
+    dict := make(map[int] int)
+    
+    for _, num := range nums{
+        dict[num] += 1
+    }
+    
+    for num, count := range dict {
+        if count == 1 {
+            return num
+        }
+    }
+    return -1
 
-	// count the number of occurrences of each digit
-	for _, num := range nums {
-		counts[num]++
-	}
 
-	// find the digit that appears only once
-	for num, count := range counts {
-		if count == 1 {
-			return num
-		}
-	}
-
-	// if there is no unique digit, return -1 or an error message
-	return -1
 }

@@ -10,12 +10,4 @@ class Solution:
         alpha_dict = {}
         for k, v in zip(alphabet, set_list):
             alpha_dict[v] = k
-            # print(k, v)
-        result = []
-        for m in message:
-            if m == " ":
-                result.append(" ")
-                continue
-            result.append(alpha_dict[m])
-        
-        return "".join(result)
+        return "".join([alpha_dict.get(m, " ") for m in message])

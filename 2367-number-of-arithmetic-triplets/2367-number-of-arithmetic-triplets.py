@@ -7,8 +7,4 @@ class Solution:
                     for k in range(j + 1, len(nums)):
                         if nums[k] - nums[j] == diff:
                             count += 1
-                        else:
-                            continue
-                else:
-                    continue
         return count

@@ -1,8 +1,9 @@
 class Solution:
     def countBits(self, n: int) -> list[int]:
-        dp = []
-        for i in range(n + 1):
-            b_ = bin(i).split("0b")[1]
-            dp.append(list(b_).count('1'))
-            
+        dp = [0] * (n + 1)
+        for i in range(1, n + 1):
+            if i % 2 == 1:
+                dp[i] = dp[i - 1] + 1
+            else:
+                dp[i] = dp[i // 2]
         return dp

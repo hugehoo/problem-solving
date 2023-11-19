@@ -1,12 +1,6 @@
 class Solution:
     def interpret(self, command: str) -> str:
-        dict_ = {
-            "G": "G",
-            "()": "o",
-            "(al)": "al"
-        }
         command = list(command)
-        
         answer = ""
         for idx, c in enumerate(command):
             if c == "(" and command[idx + 1] == ")":

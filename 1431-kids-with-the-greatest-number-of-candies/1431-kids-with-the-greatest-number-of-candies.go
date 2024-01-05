@@ -1,9 +1,13 @@
 func kidsWithCandies(candies []int, extraCandies int) []bool {
-	var lenCandy int = len(candies)
-	//result := [lenCandy]bool{}
+	var lenCandy = len(candies)
 	result := make([]bool, lenCandy)
-
-	maxNumber := findMax(candies)
+	maxNumber := 0
+	for i := 0; i < len(candies); i++ {
+		if maxNumber < candies[i] {
+			maxNumber = candies[i]
+		}
+	}
+  
 	for idx, val := range candies {
 		if val+extraCandies >= maxNumber {
 			result[idx] = true
@@ -12,21 +16,4 @@ func kidsWithCandies(candies []int, extraCandies int) []bool {
 		}
 	}
 	return result
-}
-
-func findMax(arr []int) int {
-	if len(arr) == 0 {
-		// Handle empty array case
-		return 0 // or any other appropriate value
-	}
-
-	max := arr[0] // Initialize max with the first element of the array
-
-	for _, num := range arr {
-		if num > max {
-			max = num // Update max if a larger element is found
-		}
-	}
-
-	return max
 }

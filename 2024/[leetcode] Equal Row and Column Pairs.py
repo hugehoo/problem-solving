@@ -9,3 +9,7 @@ class Solution:
             result.append(sum([1 for m in range(len(grid)) if grid[n] == trans_grid[m]]))
             
         return sum(result)
+
+
+s = Solution()
+print(s.equalPairs([[3, 1, 2, 2], [1, 4, 4, 5], [2, 4, 2, 2], [2, 4, 2, 2]]))

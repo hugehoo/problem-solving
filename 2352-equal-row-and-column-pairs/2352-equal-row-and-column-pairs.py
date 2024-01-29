@@ -3,10 +3,9 @@ class Solution:
         trans_grid = []
         for n in range(len(grid)):
             trans_grid.append([grid[j][n] for j in range(len(grid))])
-        print(trans_grid)
-        total = 0
+
+        result = []
         for n in range(len(grid)):
-            for m in range(len(grid)):
-                if grid[n] == trans_grid[m]:
-                    total += 1
-        return total
+            result.append(sum([1 for m in range(len(grid)) if grid[n] == trans_grid[m]]))
+            
+        return sum(result)

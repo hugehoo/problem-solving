@@ -10,4 +10,3 @@ class Solution:
     
 s = Solution()
 print(s.sortSentence("Myself2 Me1 I4 and3"))
-

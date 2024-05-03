@@ -4,7 +4,4 @@ class Solution:
         s_ = sorted(list(s))
         t_ = sorted(list(t))
         
-        if s_ == t_:
-            return True
-        else: 
-            return False
+        return s_ == t_

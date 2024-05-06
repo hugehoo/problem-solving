@@ -12,13 +12,16 @@ func Constructor() MinStack {
 
 
 func (this *MinStack) Push(val int)  {
+    
     if this.top == -1 {
         this.min = append(this.min, val)
     } else {
-        this.min = append(this.min, min(val, (this.min)[this.top]))
+        this.min = append(this.min, min(val, this.min[this.top]))
     }
+
     this.stack = append(this.stack, val)
     this.top++
+    
 }
 
 

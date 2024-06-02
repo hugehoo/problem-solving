@@ -5,5 +5,6 @@ class Solution(object):
     def addDigits(self, num):
         string_num = str(num)
         while len(string_num) > 1:
-            string_num = str(reduce(lambda x, y: int(x) + int(y), string_num))
+            result = reduce(lambda x, y: int(x) + int(y), string_num)
+            string_num = str(result)
         return int(string_num)

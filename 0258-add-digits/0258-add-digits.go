@@ -1,12 +1,21 @@
 func addDigits(num int) int {
-    if num == 0 {
-        return 0
+    for {
+        sum := sumDigits(num)
+        num = sum
+        
+        if num < 10 {
+            return num
+        }
     }
-    if num % 9 == 0 {
-        return 9
+}
+
+
+func sumDigits(num int) int {
+    var sum int
+    for num > 0 {
+        digit := num % 10
+        sum += digit
+        num /= 10 
     }
-    return num % 9
-    
-    
-    
+    return sum
 }

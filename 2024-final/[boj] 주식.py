@@ -3,13 +3,14 @@ from sys import stdin
 
 def stock(n):
     prices = list(map(int, input().split()))
-    latest = prices[-1]
+    highest = prices[-1]
     result = 0
     for i in range(n - 2, -1, -1):
-        if latest > prices[i]:
-            result += (latest - prices[i])
+        diff = highest - prices[i]
+        if diff > 0:
+            result += diff
         else:
-            latest = prices[i]
+            highest = prices[i]
     return result
 
 
